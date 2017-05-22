@@ -4,13 +4,13 @@ using namespace std;
 class Item{
 	
 	public:
-		unsigned int id;
+		int id;
 		string name;
 		double cp;
 		double sp;
 		double wt;
 		double dis;//discount if any
-		Item(unsigned int id, string name,double cp, double sp, double wt, double dis=0){
+		Item(int id, string name,double cp, double sp, double wt, double dis=0){
 			this->id=id;
 			this->cp=cp;
 			this->sp=sp;
@@ -24,9 +24,10 @@ class Item{
 			name="NULL";
 		}
 		double find_cp();
-		unsigned int find_id();
+	    int find_id();
 		string find_name();
 		void printwhole();
+		void addtodb();
 
 };
 void Item::printwhole(){
@@ -41,9 +42,13 @@ void Item::printwhole(){
 double Item::find_cp(){
 	return cp;
 }
-unsigned int  Item::find_id(){
+ int  Item::find_id(){
 	return id;
 }
 string Item::find_name(){
 	return name;
+}
+void Item::addtodb(){
+	//it will first open
+
 }

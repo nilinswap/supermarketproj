@@ -13,7 +13,7 @@ void resize(T **arr,int size,int newSize) {
 }
 class List{
 	public:
-		unsigned int numofgrps;
+		 int numofgrps;
 		Itemgroup *grpar;
 		List(){
 			numofgrps=0;
