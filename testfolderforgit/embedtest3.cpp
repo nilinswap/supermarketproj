@@ -11,7 +11,8 @@ int main()
 
     // Initialize the Python Interpreter
     Py_Initialize();
-
+    PyRun_SimpleString("import sys");
+    PyRun_SimpleString("sys.path.append(\".\")");
     // Build the name object
     pName = PyString_FromString("py_function.py");
 

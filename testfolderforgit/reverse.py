@@ -17,3 +17,12 @@ def rdict(d):
 	for k in d.keys():
 		e[d[k]] = k
 	return e
+"""
+def multiply(a,b):
+	a=int(a)
+	b=int(b)
+    print("Will compute", a, "times", b)
+    c = 0
+    for i in range(0, a):
+        c = c + b
+    return str(c)"""

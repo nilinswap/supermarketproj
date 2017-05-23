@@ -1,5 +1,6 @@
 
 #include <string>
+
 using namespace std;
 class Item{
 	
@@ -10,7 +11,7 @@ class Item{
 		double sp;
 		double wt;
 		double dis;//discount if any
-		Item(int id, string name,double cp, double sp, double wt, double dis=0){
+		Item(int id, string name,double cp, double sp, double wt, double dis=0){//id=0 by default
 			this->id=id;
 			this->cp=cp;
 			this->sp=sp;

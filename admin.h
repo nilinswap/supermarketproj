@@ -1,33 +1,18 @@
 
 #include <queue>
+#include <string>
 #include <iostream>
-#include "item.h"
+#include "task.h"
+
 using namespace std;
-union guestunion{
-		int id;
-		string name;
-		double cp;
-		double sp;
-		double wt;
-		double dis;
-	};						//here guest is the key as per which a task is asked. e.g. if we want to query a name then 'name' is guest
-class Task:public Item{
-	public:
-		guestunion guest;
-		int operation;
-		Task(Item tem,guestunion guest,int operation):Item(tem){this.guest=guest;this.operation=operation;}
-		void committask();
 
-}
-void committask(){
-}
 
-void commitqueue(queue <Task> que){
+void commitqueue(queue <Task*> que){
 }
 
 int adminmain(){
 	int option;//options over different tasks
-	queue <Task> que;
+	//queue <Task*> que;
 	while(1){
 		cin>>option;
 		switch(option){
@@ -39,29 +24,32 @@ int adminmain(){
 						double sp;
 						double wt;
 						double dis; 
-			 			cout<<"enter all data in order:id,name,cp,sp,wt,dis"<<endl;
-			 			cin>>id;cin>>name;cin>>cp;cin>>sp;cin>>wt;cin>>dis;
+			 			cout<<"enter all data in order:name,cp,sp,wt,dis"<<endl;
+			 			cin>>name;cin>>cp;cin>>sp;cin>>wt;cin>>dis;
 			 			guestunion guest;guest.id=-1;//guest id -1 for no guest
 			 			Item tem (id,name,cp,sp,wt,dis);
-			 			Task newtask (tem,guest,option);
+			 			//Task * newtask= new addtodb(tem,guest,option);
+			 			//addtodb addtask (tem,guest,option);
+			 			//newtask=&addtask;
+
 			 			cout<<"do you want to immediately commit this change or enque it for final commit: enter 1 for enque and 2 for commit"<<endl;
 			 			cin>>option;
 			 			if(option==2){
-			 				newtask.committask();
+			 				//newtask->committask();
 			 				break;
 			 			}
 			 			else if(option==1){
-			 				que.push(newtask);
+			 				//que.push(newtask);
 			 				break;
 			 			}
 			 			break;
 			}
 			 case 1:{
-			 		commitqueue(que);
+			 		//commitqueue(que);
 					break; 		
 			}
 			case 0:{
-			 		commitqueue(que);
+			 		//commitqueue(que);
 			 		return 1;
 			}
 
