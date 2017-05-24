@@ -12,13 +12,4 @@ def multiply(a,b):
     for i in range(0, a):
         c = c + b
     return str(c)
-def addtodbcore(name,cp,sp,wt,dis):
-	
-	
-	
-	c,conn=connection()
-	c.execute("INSERT INTO itemtable (name,cp,sp,wt,dis) VALUES (%s,%s,%s,%s,%s)",(name,cp,sp,wt,dis))#here variable name must be same as that in database
-	conn.commit()
-	c.close()
-	conn.close()
 	

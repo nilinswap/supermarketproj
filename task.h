@@ -1,6 +1,7 @@
 #include "Python.h"
 #include "errands.h"
 using namespace std;
+#include <typeinfo>
 union guestunion{
 		int id;
 		char name[50];//earlier I had kept here 'string name' instead of char [50] so union was not getting an idea of how large it has to take space therefore it was throwing an error.
@@ -15,8 +16,8 @@ class Task:public Item{//Task is a virtual base class here, to be extended by ot
 		int operation;
 		
 		Task(Item tem,guestunion guest,int operation):Item(tem){this->guest=guest;this->operation=operation;}
-		virtual void committask();
-		virtual void coretask();
+		virtual void committask(){};
+		virtual void coretask(){};
 
 };
 class addtodb:public Task{
@@ -24,28 +25,49 @@ class addtodb:public Task{
 	public:
 		addtodb(Item tem,guestunion guest,int operation):Task(tem,guest,operation){}
 		void committask(){//this would immediately add product to db.
-				
+
 				
 				Py_Initialize();
 
 				coretask();
 			
 				Py_Finalize();
-
 		}
 		void coretask(){//this would do the main task after the database has been opened.
 				PyObject *strret, *mymod, *strfunc, *strargs;
+
 				string cpstr= ttostring <double>(cp);
 				string spstr= ttostring <double>(sp);
 				string wtstr= ttostring <double>(wt);
-				string disstr= ttostring <double>(dis);
+				string disstr= ttostring <double>(dis);//this function is defined in errands.h
+						char cpstri[50];//this three line operation is requiered for each attribute because 
+						strncpy(cpstri, cpstr.c_str(), sizeof(cpstri));//stupid Buildvalue only takes char* as argument
+						cpstri[sizeof(cpstri) - 1] = 0;
+						char spstri[50];
+						strncpy(spstri, spstr.c_str(), sizeof(spstri));
+						spstri[sizeof(spstri) - 1] = 0;
+						char wtstri[50];
+						strncpy(wtstri, wtstr.c_str(), sizeof(wtstri));
+						wtstri[sizeof(wtstri) - 1] = 0;
+						char disstri[50];
+						strncpy(disstri, disstr.c_str(), sizeof(disstri));
+						disstri[sizeof(disstri) - 1] = 0;
+						char namestri[50];
+						strncpy(namestri, name.c_str(), sizeof(namestri));
+						namestri[sizeof(namestri) - 1] = 0;
+				//printf("%s %s %s %s \n",cpstri,spstri,wtstri,disstri);
+				//std::cout<<typeid(cpstr).name()<<typeid(spstr).name()<<typeid(wtstr).name()<<typeid(disstr).name()<<endl;
 				PyRun_SimpleString("import sys");
     			PyRun_SimpleString("sys.path.append(\".\")");
     			PyRun_SimpleString("import pymysql");
+    			
 				mymod = PyImport_ImportModule("addtodbcore");
 				strfunc = PyObject_GetAttrString(mymod, "addtodbcore");
-				strargs = Py_BuildValue("sssss",name,cpstr,spstr,wtstr,disstr);
+				
+				strargs = Py_BuildValue("sssss",namestri,cpstri,spstri,wtstri,disstri);//here I was only able to pass strings as arguments
+				//strargs = Py_BuildValue("sssss",par,"45","35","24","0");
 				strret = PyEval_CallObject(strfunc, strargs);
+				
 		}
 };
 class displaydb:public Task{
