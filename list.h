@@ -13,11 +13,11 @@ void resize(T **arr,int size,int newSize) {
 }
 class List{
 	public:
-		 int numofgrps;
+	    int numofgrps;
 		Itemgroup *grpar;
-		List(){
-			numofgrps=0;
-			grpar=NULL;
+		List(int n,Itemgroup *grap){
+			numofgrps=n;
+			grpar=grap;
 		}
 		void listadd(Itemgroup grp);
 		void listremove_at_index(int ind);
@@ -37,9 +37,23 @@ void List::listadd(Itemgroup grp){
 
 }
 void List::listedit_at_index(int ind, int number){
-	grpar[ind].num=number;
-	}
+	if(number==0)
+		listremove_at_index(ind);
+	else
+		grpar[ind].num=number;
+}
 void List::listremove_at_index(int ind){
-	listedit_at_index( ind,0);
+	grpar[ind].num=0;
+	for(int i=ind;i<(numofgrps-1);i++){
+		Itemgroup  temp;
+		temp=grpar[i];
+		grpar[i]=grpar[i+1];
+		grpar[i+1]=temp;
+
+
+	}
+	numofgrps--;
+
+
 }
 

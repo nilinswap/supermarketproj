@@ -3,6 +3,8 @@
 #include "item.h"
 #include  "itemgroup.h"
 #include "admin.h"
+#include "list.h"
+#include "cashier.h"
 int main(){
 	Item firstitem (7,"nameisname",65,55,30);
 	firstitem.printwhole();
@@ -12,6 +14,7 @@ int main(){
 	cout<<"lets take another break\n";
 	cout<<firstitem.find_id()<<" "<<firstitem.find_name()<<" "<<firstitem.find_cp()<<endl;
 	cout<<firstgrp.find_id()<<" "<<firstgrp.find_name()<<" "<<firstgrp.find_cp()<<" "<<firstgrp.find_grpprice()<<" "<<firstgrp.find_grpwt()<<" "<<firstgrp.find_num()<<endl;
+	cashiermain();
 	adminmain();
 
 }
