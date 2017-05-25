@@ -4,6 +4,9 @@
 #include "errands.h"
 #include <vector>
 #include <cstdlib>
+#include <stdlib.h>
+#include <iomanip>
+#include <conio.h>
 using namespace std;
 #include "item.h"
 Item tomakeitemfromcharar(char * charar,int id){
@@ -56,5 +59,10 @@ int main(){
 	char charar[]="18,item,34.0,32.0,12.0,23.0";
 	Item tem=tomakeitemfromcharar(charar,18);
 	cout<<tem.name<<endl;
+    int i;
+    line();
+    cin>>i;
+    system("clear");
+    cout<<"here"<<endl;
 
 }

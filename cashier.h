@@ -2,6 +2,8 @@ using namespace std;
 //#include "errands.h"
 #include <vector>
 #include <cstdlib>
+#include <stdlib.h>
+#include <iomanip>
 using namespace std;
 //#include "item.h"
 Item tomakeitemfromcharar(char * charar,int id){
@@ -33,15 +35,28 @@ Item tomakeitemfromcharar(char * charar,int id){
 double displaylist(List listi){
 	cout<<" list is\n"<<endl;
 	int n=listi.numofgrps;
+	double cpsum=0;
 	int i;
-	cout<<"  index\t"<<"id"<<"\t\t"<<"name"<<"\t\tnumber"<<"\tcp\n";
+	/*
+	cout<<"  index\t"<<"id"<<"\t\t"<<"name"<<"\t\tnumber"<<"\tdiscount"<<"\tcp\n";
 	cout<<"--------------------------------------------------------------\n";
-	double cpsum=0; 
+	 
 	for (i=0;i<n;i++)
 	{	
-		cpsum+=listi.grpar[i].cp*listi.grpar[i].num;
-		cout<<" | "<<i+1<<"\t"<<listi.grpar[i].id<<"\t\t"<<listi.grpar[i].name<<"\t\t"<<listi.grpar[i].num<<"\t"<<listi.grpar[i].cp<<"\n";
+		cpsum+=listi.grpar[i].cp*listi.grpar[i].num*(1-(listi.grpar[i].dis/100));
+		cout<<" | "<<i+1<<"\t"<<listi.grpar[i].id<<"\t\t"<<listi.grpar[i].name<<"\t\t"<<listi.grpar[i].num<<"\t"<<listi.grpar[i].dis<<"\t"<<listi.grpar[i].cp<<"\n";
+	}*/
+	//line();
+	cout<<setw(5)<<"index"<<setw(7)<<"id"<<setw(15)<<"name"
+     <<setw(10)<<"number"<<setw(10)<<"discount"<<setw(10)<<"cp\n";
+	cout<<"--------------------------------------------------------------\n";
+	for(int i=0;i<n;i++)
+	{
+		cpsum+=listi.grpar[i].cp*listi.grpar[i].num*(1-(listi.grpar[i].dis/100));
+	cout<<setw(5)<<i+1<<setw(7)<<listi.grpar[i].id<<setw(15)<<listi.grpar[i].name
+     <<setw(10)<<listi.grpar[i].num<<setw(10)<<listi.grpar[i].dis<<setw(10)<<listi.grpar[i].cp<<endl;
 	}
+	
 	cout<<"--------------------------------------------------------------\n";
 	cout<<"Total\t"<<cpsum<<endl;
 	return cpsum;
@@ -114,7 +129,7 @@ Itemgroup makeitemgroupfromid(int id,int num,PyObject*mymod,PyObject*strfunc){
 	}	
 }
 void cashiermain(){
-
+	//cout<<"here";
 	List newlist(0,NULL);
 	int id,num;
 	int count=0;
@@ -129,6 +144,7 @@ void cashiermain(){
 				strfunc = PyObject_GetAttrString(mymod, "retrieveitem");
 	cout<< "enter id and number"<<endl;
 	cin>>id>>num;
+	system("clear");
 	while(id>-1){
 
 		if(id==0){
@@ -140,18 +156,21 @@ void cashiermain(){
 				cout<<"enter index and reenter new number"<<endl;
 				int ind;
 				cin>>ind>>num;
+				system("clear");
 				newlist.listedit_at_index(ind-1,num);
 			}
 			else{
 					cout<<"enter what index to remove"<<endl;
 					int ind;
 					cin>>ind;
+					system("clear");
 					newlist.listremove_at_index(ind-1);
 			}
 			cout<<"editting done"<<endl;
 			displaylist(newlist);
 			cout<< "enter id and number"<<endl;
 			cin>>id>>num;
+			system("clear");
 			continue;
 		}
 		Itemgroup temgrp= makeitemgroupfromid(id,num,mymod,strfunc);
@@ -161,6 +180,8 @@ void cashiermain(){
 		displaylist(newlist);
 		cout<< "enter id and number"<<endl;
 		cin>>id>>num;
+		if(id)
+			system("clear");
 		count++;
 
 	}

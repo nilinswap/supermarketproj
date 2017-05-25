@@ -3,18 +3,33 @@
 #include <string>
 #include <iostream>
 #include "task.h"
-
+#include <stdlib.h>
 using namespace std;
 
 
 void commitqueue(queue <Task*> que){
+
+	while(!que.empty())
+	{
+		que.front()->committask();
+		que.pop();
+	}
+	cout<<"emptied queue"<<endl;
 }
 
 int adminmain(){
 	int option;//options over different tasks
 	queue <Task*> que;
 	while(1){
+		cout<<"enter option\n";
+		cout<<"\t2. add item to database"<<endl;
+		cout<<"\t3. see database"<<endl;
+		cout<<"\t4. ask database"<<endl;
+		cout<<"\t5. edit product's data"<<endl;
+		cout<<"\t1. commit queue"<<endl;
+		cout<<"\t0. exit"<<endl; 
 		cin>>option;
+		system("clear");
 		switch(option){
 			case 2:{
 			 			int opt;//option over enque or commit
@@ -37,7 +52,7 @@ int adminmain(){
 			 			cin>>opt;
 			 			if(opt==2){
 			 				newtask->committask();
-			 				
+			 				cout<<"added"<<endl;
 			 				break;
 			 			}
 			 			else if(opt==1){
@@ -49,11 +64,11 @@ int adminmain(){
 			 			break;
 			}
 			 case 1:{
-			 		//commitqueue(que);
+			 		commitqueue(que);
 					break; 		
 			}
 			case 0:{
-			 		//commitqueue(que);
+			 		commitqueue(que);
 			 		return 1;
 			}
 

@@ -5,6 +5,7 @@
 #include "admin.h"
 #include "list.h"
 #include "cashier.h"
+#include <stdlib.h>
 int main(){
 	Item firstitem (7,"nameisname",65,55,30);
 	firstitem.printwhole();
@@ -20,8 +21,9 @@ int main(){
     			PyRun_SimpleString("import pymysql");
 				
 	cashiermain();
-	//IT IS VERY IMPORTANT to see that I cannot import a py-module twice in a single instance of C++ program.
+	//IT IS VERY IMPORTANT to see that I cannot import a py-module twice in a single instance of C++ program, due to cache.
 	// THE REASON WHY I had to write above in main.
+	system("clear");
 	adminmain();
 
 			
