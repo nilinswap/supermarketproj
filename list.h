@@ -8,7 +8,7 @@ void resize(T **arr,int size,int newSize) {
     memcpy( newArr, *arr, size * sizeof(T) );
 
     
-    delete [] *arr;
+   // delete [] *arr; I HAVE NO IDEA why deleting this has fatal effect on program
     *arr = newArr;
 }
 class List{
@@ -25,7 +25,9 @@ class List{
 
 };
 void List::listadd(Itemgroup grp){
+	
 	resize <Itemgroup>(&grpar,numofgrps,numofgrps+1);
+	
 	if(not grpar)
 	{ cout<<"locked up ... they won't let me out\n";
 		return ;

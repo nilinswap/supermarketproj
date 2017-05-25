@@ -30,7 +30,24 @@ Item tomakeitemfromcharar(char * charar,int id){
     return tem;
     
 }
-Itemgroup makeitemgroupfromid(int id,int num){
+double displaylist(List listi){
+	cout<<" list is\n"<<endl;
+	int n=listi.numofgrps;
+	int i;
+	cout<<"  index\t"<<"id"<<"\t\t"<<"name"<<"\t\tnumber"<<"\tcp\n";
+	cout<<"--------------------------------------------------------------\n";
+	double cpsum=0; 
+	for (i=0;i<n;i++)
+	{	
+		cpsum+=listi.grpar[i].cp*listi.grpar[i].num;
+		cout<<" | "<<i+1<<"\t"<<listi.grpar[i].id<<"\t\t"<<listi.grpar[i].name<<"\t\t"<<listi.grpar[i].num<<"\t"<<listi.grpar[i].cp<<"\n";
+	}
+	cout<<"--------------------------------------------------------------\n";
+	cout<<"Total\t"<<cpsum<<endl;
+	return cpsum;
+}
+
+Itemgroup makeitemgroupfromid(int id,int num,PyObject*mymod,PyObject*strfunc){
 	if(id>0)
 	{
 		/*Py_Initialize();
@@ -70,25 +87,19 @@ Itemgroup makeitemgroupfromid(int id,int num){
 				strret = PyEval_CallObject(strfunc, strargs);
 				PyArg_Parse(strret, "s", &cstrret);
 		Py_Finalize();*/
-		Py_Initialize();
-
-				PyObject *strret, *mymod, *strfunc, *strargs;
-				char *cstrret;
-				PyRun_SimpleString("import sys");
-    			PyRun_SimpleString("sys.path.append(\".\")");
-    			cout<<"error"<<endl;
+		
     			//PyRun_SimpleString("import pymysql");
     			
     			//cout<<"hell"<<endl;
+				char *cstrret;PyObject *strret;PyObject*strargs;
     			string idstr= ttostring <int>(id);//this function is defined in errands.h
 						char idstri[50];//this three line operation is requiered for each attribute because 
 						strncpy(idstri, idstr.c_str(), sizeof(idstri));//stupid Buildvalue only takes char* as argument
 						idstri[sizeof(idstri) - 1] = 0;
 				//cout<<idstr<<endl;
-				mymod = PyImport_ImportModule("retrieveitem");
-				strfunc = PyObject_GetAttrString(mymod, "retrieveitem");
+			
 				//printf("%s\n",idstri);
-				cout<<"errorhere"<<endl;
+				
 				strargs = Py_BuildValue("(s)",idstri);//here I was only able to pass strings as arguments
 				//strargs = Py_BuildValue("sssss",par,"45","35","24","0");
 				strret = PyEval_CallObject(strfunc, strargs);
@@ -97,7 +108,7 @@ Itemgroup makeitemgroupfromid(int id,int num){
 				Item tem=tomakeitemfromcharar(cstrret,id);
 				//cout<<tem.name<<tem.cp<<endl;
 				//printf("%s\n",cstrret);
-		Py_Finalize();
+				
 		Itemgroup temgrp(tem,num);
 		return temgrp;
 	}	
@@ -107,6 +118,15 @@ void cashiermain(){
 	List newlist(0,NULL);
 	int id,num;
 	int count=0;
+			Py_Initialize();
+
+				PyObject *strret, *mymod, *strfunc;
+				
+				PyRun_SimpleString("import sys");
+    			PyRun_SimpleString("sys.path.append(\".\")");
+    			
+    			mymod = PyImport_ImportModule("retrieveitem");
+				strfunc = PyObject_GetAttrString(mymod, "retrieveitem");
 	cout<< "enter id and number"<<endl;
 	cin>>id>>num;
 	while(id>-1){
@@ -120,28 +140,36 @@ void cashiermain(){
 				cout<<"enter index and reenter new number"<<endl;
 				int ind;
 				cin>>ind>>num;
-				newlist.listedit_at_index(ind,num);
+				newlist.listedit_at_index(ind-1,num);
 			}
 			else{
 					cout<<"enter what index to remove"<<endl;
 					int ind;
 					cin>>ind;
-					newlist.listremove_at_index(ind);
+					newlist.listremove_at_index(ind-1);
 			}
 			cout<<"editting done"<<endl;
+			displaylist(newlist);
+			cout<< "enter id and number"<<endl;
 			cin>>id>>num;
 			continue;
 		}
-		Itemgroup temgrp= makeitemgroupfromid(id,num);
+		Itemgroup temgrp= makeitemgroupfromid(id,num,mymod,strfunc);
 		newlist.listadd(temgrp);
 		cout<<"added"<<endl;
-		cout<<newlist.grpar[count].id<<' '<<newlist.grpar[count].name<<' '<< newlist.grpar[count].num<<endl;
+		//cout<<newlist.grpar[count].id<<' '<<newlist.grpar[count].name<<' '<< newlist.grpar[count].num<<endl;
+		displaylist(newlist);
 		cout<< "enter id and number"<<endl;
 		cin>>id>>num;
 		count++;
 
 	}
+	cout<<endl<<"so you say final bill is "<<endl;
+	double total=displaylist(newlist);
+	cout<<"out of cashiermain"<<endl;
+				Py_Finalize();
 
 }
+
 
 
