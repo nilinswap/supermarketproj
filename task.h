@@ -17,23 +17,15 @@ class Task:public Item{//Task is a virtual base class here, to be extended by ot
 		
 		Task(Item tem,guestunion guest,int operation):Item(tem){this->guest=guest;this->operation=operation;}
 		virtual void committask(){};
-		virtual void coretask(){};
+		
 
 };
 class addtodb:public Task{
 	//this task would add new product to db
 	public:
 		addtodb(Item tem,guestunion guest,int operation):Task(tem,guest,operation){}
-		void committask(){//this would immediately add product to db.
-
-				
-				Py_Initialize();
-
-				coretask();
-			
-				Py_Finalize();
-		}
-		void coretask(){//this would do the main task after the database has been opened.
+		
+		void committask(){//this would do the main task after the database has been opened.
 				PyObject *strret, *mymod, *strfunc, *strargs;
 
 				string cpstr= ttostring <double>(cp);
@@ -57,10 +49,8 @@ class addtodb:public Task{
 						namestri[sizeof(namestri) - 1] = 0;
 				//printf("%s %s %s %s \n",cpstri,spstri,wtstri,disstri);
 				//std::cout<<typeid(cpstr).name()<<typeid(spstr).name()<<typeid(wtstr).name()<<typeid(disstr).name()<<endl;
-				PyRun_SimpleString("import sys");
-    			PyRun_SimpleString("sys.path.append(\".\")");
-    			PyRun_SimpleString("import pymysql");
-    			
+				
+    			//cout<<"after this"<<endl;
 				mymod = PyImport_ImportModule("addtodbcore");
 				strfunc = PyObject_GetAttrString(mymod, "addtodbcore");
 				

@@ -118,13 +118,13 @@ void cashiermain(){
 	List newlist(0,NULL);
 	int id,num;
 	int count=0;
-			Py_Initialize();
+			//Py_Initialize();
 
 				PyObject *strret, *mymod, *strfunc;
 				
-				PyRun_SimpleString("import sys");
-    			PyRun_SimpleString("sys.path.append(\".\")");
-    			
+				//PyRun_SimpleString("import sys");
+    			//PyRun_SimpleString("sys.path.append(\".\")");
+				//PyRun_SimpleString("import pymysql");    			
     			mymod = PyImport_ImportModule("retrieveitem");
 				strfunc = PyObject_GetAttrString(mymod, "retrieveitem");
 	cout<< "enter id and number"<<endl;
@@ -167,7 +167,7 @@ void cashiermain(){
 	cout<<endl<<"so you say final bill is "<<endl;
 	double total=displaylist(newlist);
 	cout<<"out of cashiermain"<<endl;
-				Py_Finalize();
+			//	Py_Finalize();
 
 }
 
