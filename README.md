@@ -3,11 +3,13 @@ this project is to facilitate supermarket billing. It is fully console based but
 ## Tools used
 This is a project on **C++**. It uses **MySQL** for database which is made possible by **python embedding**.
 ## Environmental requirements
-It is good with any OS(only replace 'clear' with 'cls' for windows).It requires GNU compiler,MySQL and Python3.Pymysql module is required.
+It is good on any OS(only replace 'clear' with 'cls' for windows).It requires **GNU C++** compiler,**MySQL** and **Python3**.**Pymysql** module is required.
 ## How To Run
 Just type following command
+
 **g++   main.cpp -I/usr/include/python3.5m -lpython3.5m**
-on terminal
+on terminal.
+
 I will add the make file soon.
 
 **P.S.** still being developed ...aiming more functionalities and GUI.
