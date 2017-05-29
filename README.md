@@ -8,6 +8,7 @@ It is good on any OS(only replace 'clear' with 'cls' for windows).It requires **
 Just type following command
 
 **g++   main.cpp -I/usr/include/python3.5m -lpython3.5m**
+
 for entry password is **sharma** and for admin password is **swapnil**.
 on terminal.
 
