@@ -7,6 +7,7 @@
 using namespace std;
 
 
+
 void commitqueue(queue <Task*> que){
 
 	while(!que.empty())
@@ -16,7 +17,40 @@ void commitqueue(queue <Task*> que){
 	}
 	cout<<"emptied queue"<<endl;
 }
+void changename(string idstr){
 
+
+	char *cstrret;PyObject *strret, *mymod, *strfunc, *strargs;
+    			//string idstr= ttostring <int>(id);//this function is defined in errands.h
+						char idstri[50];//this three line operation is requiered for each attribute because 
+						strncpy(idstri, idstr.c_str(), sizeof(idstri));//stupid Buildvalue only takes char* as argument
+						idstri[sizeof(idstri) - 1] = 0;
+				//cout<<idstr<<endl;
+			
+				//printf("%s\n",idstri);
+				string newname;
+				//cin>>newname;
+				char newnamestri[50];
+						strncpy(newnamestri, newname.c_str(), sizeof(newnamestri));
+						newnamestri[sizeof(newnamestri) - 1] = 0;
+							cout<<"are we here"<<endl;
+				//mymod = PyImport_ImportModule("changedbcore");
+				//strfunc = PyObject_GetAttrString(mymod, "changename");
+					Py_Initialize();
+					PyRun_SimpleString("import sys");		
+    			PyRun_SimpleString("sys.path.append(\".\")");
+						PyRun_SimpleString("import changedbcore");
+						cout<<"are we here"<<endl;
+						PyRun_SimpleString("changedbcore.changename()");
+				cout<<"are we here"<<endl;
+				Py_Finalize();
+				//strargs = Py_BuildValue("(ss)",idstri,newnamestri);//here I was only able to pass strings as arguments
+				//strargs = Py_BuildValue("sssss",par,"45","35","24","0");
+				//strret = PyEval_CallObject(strfunc, strargs);
+				//PyArg_Parse(strret, "s", &cstrret);
+				//cout<<cstrret<<endl;
+				//Item tem=tomakeitemfromcharar(cstrret,id);
+}
 int adminmain(){
 	int option;//options over different tasks
 	queue <Task*> que;
@@ -70,6 +104,72 @@ int adminmain(){
 			case 0:{
 			 		commitqueue(que);
 			 		return 1;
+			}
+			case 5:{
+				//char *cstrret;PyObject *strret, *mymod, *strfunc, *strargs;
+    			string id;
+    			cout<<"welcome to update, enter the id where you want to change"<<endl;
+    			cin>>id;
+    			int i=0;
+    			switch(i){
+    				case 0:
+    					{
+    						char c;
+    						cout<<"want to update name? y or n"<<endl;
+    						cin>>c;
+    						if(c=='y'){
+    										//cout<<"here";
+    										changename(id);
+    										cout<<"below change"<<endl;
+    								  }
+    						break;
+    					}
+    				case 1:
+    					{
+    						char c;
+    						cout<<"want to update cp? y or n"<<endl;
+    						cin>>c;
+    						if(c=='y'){
+    										//changecp(id);
+    								  }
+    						else
+    							break;
+    					}
+    				case 2:
+    					{
+    						char c;
+    						cout<<"want to update sp? y or n"<<endl;
+    						cin>>c;
+    						if(c=='y'){
+    										//changesp(id);
+    								  }
+    						else
+    							break;
+    					}
+    				case 3:
+    					{
+    						char c;
+    						cout<<"want to update wt? y or n"<<endl;
+    						cin>>c;
+    						if(c=='y'){
+    										//changewt(id);
+    								  }
+    						else
+    							break;
+    					}
+    				case 4:
+    					{
+    						char c;
+    						cout<<"want to update dis? y or n"<<endl;
+    						cin>>c;
+    						if(c=='y'){
+    										//changedis(id);
+    								  }
+    						else
+    							break;
+    					}
+    			}
+
 			}
 
 			default:

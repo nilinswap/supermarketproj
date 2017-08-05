@@ -20,6 +20,7 @@ class Task:public Item{//Task is a virtual base class here, to be extended by ot
 		
 
 };
+
 class addtodb:public Task{
 	//this task would add new product to db
 	public:
@@ -74,6 +75,12 @@ class askdb: public Task{
 class editprodindb: public Task{
 	public:
 		void committask(){
+
+
+				
+
+
+    			
 		}
 };
 class deldb: public Task{

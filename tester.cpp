@@ -20,7 +20,7 @@ int main(){
     			PyRun_SimpleString("sys.path.append(\".\")");
     			PyRun_SimpleString("import pymysql");
 				
-	cashiermain();
+	//cashiermain();
 	//IT IS VERY IMPORTANT to see that I cannot import a py-module twice in a single instance of C++ program, due to cache.
 	// THE REASON WHY I had to write above in main.
 	system("clear");

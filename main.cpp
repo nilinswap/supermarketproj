@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string.h>
 #include <Python.h>
-#include <iostream>
-#include <string.h>
+//#include <iostream>
+//#include <string.h>
 #include "item.h"
 #include  "itemgroup.h"
 #include "admin.h"
@@ -102,6 +102,9 @@ int main(){
 					PyRun_SimpleString("import sys");		
     			PyRun_SimpleString("sys.path.append(\".\")");
     			PyRun_SimpleString("import pymysql");
+    			//PyRun_SimpleString("import imp\nfrom imp import reload");
+
+
 	switch(i){
 		case 1:
 		{	
